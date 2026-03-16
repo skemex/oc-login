@@ -14,13 +14,20 @@ jobs:
 
     steps:
       - name: Install OpenShift Client
-        uses: redhat-actions/openshift-tools-installer@v1
+        uses: skemex/openshift-tools-installer@main
         with:
           oc: 4
           skip_cache: true
 
+      - name: Setup hosts file
+        env:
+          HOST: ${{ secrets.HOST }}
+        run: |
+          echo "20.225.19.122 $HOST" | sudo tee -a /etc/hosts
+          cat /etc/hosts
+
       - name: Login to OpenShift
-        uses: redhat-actions/oc-login@v1
+        uses: skemex/oc-login@main
         with:
           openshift_server_url: ${{ secrets.OPENSHIFT_SERVER }}
           openshift_token: ${{ secrets.OPENSHIFT_TOKEN }}
