@@ -1,4 +1,6 @@
 name: oc-login v3 Example
+permissions:
+  contents: read
 on:
   push:
   workflow_dispatch:
